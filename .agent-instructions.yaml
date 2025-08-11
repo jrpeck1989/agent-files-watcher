@@ -1,0 +1,14 @@
+
+schema: 1
+partialsDir: docs/agent-partials
+templatesDir: docs/agent-templates
+output: 
+  - agent: gemini
+    template: gemini.md.tmpl
+    outFile: GEMINI.md
+  - agent: claude
+    template: claude.md.tmpl
+    outFile: CLAUDE.md
+  - agent: codex
+    template: agents.md.tmpl
+    outFile: AGENTS.md
