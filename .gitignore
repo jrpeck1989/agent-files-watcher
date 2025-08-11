@@ -1,0 +1,21 @@
+# Claude files
+.claude/
+
+# Agents files
+CLAUDE.md
+GEMINI.md
+AGENTS.md
+OpenCode.md
+
+# Node modules
+node_modules/
+
+# Build files
+dist/
+
+# Logs
+logs/
+
+# Cursor files
+.cursor/
+
