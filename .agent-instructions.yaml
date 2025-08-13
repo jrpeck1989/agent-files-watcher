@@ -1,8 +1,7 @@
-
 schema: 1
 partialsDir: docs/agent-partials
 templatesDir: docs/agent-templates
-output: 
+output:
   - agent: gemini
     template: gemini.md.tmpl
     outFile: GEMINI.md
@@ -12,3 +11,15 @@ output:
   - agent: codex
     template: agents.md.tmpl
     outFile: AGENTS.md
+  - type: cursor-rule
+    name: coding-standards
+    template: coding-standards.mdc.tmpl
+    outFile: coding-standards.mdc
+  - type: cursor-rule
+    name: best-practices
+    template: best-practices.mdc.tmpl
+    outFile: best-practices.mdc
+  - type: cursor-rule
+    name: file-organization
+    template: file-organization.mdc.tmpl
+    outFile: file-organization.mdc
