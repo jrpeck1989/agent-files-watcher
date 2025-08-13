@@ -11,6 +11,7 @@ output:
   - agent: codex
     template: agents.md.tmpl
     outFile: AGENTS.md
+# Cursor Rules
   - type: cursor-rule
     name: coding-standards
     template: coding-standards.mdc.tmpl
