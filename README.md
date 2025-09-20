@@ -31,42 +31,67 @@ Agents can update their context after performing work, creating living documenta
 
 ### Prerequisites
 - Node.js 18+ 
-- pnpm package manager
+- Package manager: npm, pnpm, or yarn
 
-### Installation & Setup
+### Installation
 
-1. **Clone and Install:**
+#### **Global Installation (Recommended)**
+```bash
+# Using pnpm
+pnpm add -g agent-files-watcher
+
+# Using npm
+npm install -g agent-files-watcher
+
+# Using yarn
+yarn global add agent-files-watcher
+```
+
+#### **One-time Usage (No Installation)**
+```bash
+# Using pnpm
+pnpm dlx agent-files-watcher init
+
+# Using npm
+npx agent-files-watcher init
+
+# Using yarn
+yarn dlx agent-files-watcher init
+```
+
+### Quick Start
+
+1. **Initialize a New Project:**
    ```bash
-   git clone <repository-url>
-   cd agent-files-watcher
-   pnpm install
-   ```
-
-2. **Initialize Project Structure:**
-   ```bash
-   pnpm dev init
+   agent-context init
    ```
    This creates:
    - `docs/agent-partials/` - Source markdown partials
    - `docs/agent-templates/` - Mustache templates for different agents
    - `.agent-instructions.yaml` - Configuration file
 
-3. **Build Agent Files:**
+2. **Build Agent Files:**
    ```bash
-   pnpm dev build
+   agent-context build
    ```
    Generates agent-specific files (e.g., `CLAUDE.md`, `GEMINI.md`) from partials and templates.
+
+3. **Watch for Changes (Optional):**
+   ```bash
+   agent-context watch
+   ```
+   Auto-rebuilds agent files when partials or templates change.
 
 ## CLI Commands
 
 | Command | Description |
 |---------|-------------|
-| `pnpm dev init` | Scaffolds new project structure with directories and config |
-| `pnpm dev build` | Generates agent files from partials using templates |
-| `pnpm dev watch` | Auto-rebuilds agent files when partials/templates change |
-| `pnpm dev serve` | Starts MCP server (HTTP mode on port 3000) |
-| `pnpm dev serve --stdio` | Starts MCP server in stdio mode for direct agent integration |
-| `pnpm dev validate` | Validates that generated files are in sync (perfect for CI) |
+| `agent-context init` | Scaffolds new project structure with directories and config |
+| `agent-context build` | Generates agent files from partials using templates |
+| `agent-context watch` | Auto-rebuilds agent files when partials/templates change |
+| `agent-context serve` | Starts MCP server (HTTP mode on port 3000) |
+| `agent-context serve --stdio` | Starts MCP server in stdio mode for direct agent integration |
+| `agent-context validate` | Validates that generated files are in sync (perfect for CI) |
 
 ## Project Structure
 
@@ -104,13 +129,13 @@ The MCP server provides programmatic access to agent context management through 
 
 **HTTP Mode (for testing):**
 ```bash
-pnpm dev serve
+agent-context serve
 # Server available at http://localhost:3000/mcp
 ```
 
 **Stdio Mode (for agent integration):**
 ```bash
-pnpm dev serve --stdio
+agent-context serve --stdio
 # Communicates via stdin/stdout for direct MCP client integration
 ```
 
@@ -175,7 +200,7 @@ output:
 - **Documentation Teams**: Maintain consistent agent instructions across multiple AI tools
 - **Development Teams**: Keep agent context synchronized with codebase changes
 - **AI Agents**: Self-update documentation after completing tasks
-- **CI/CD Pipelines**: Validate documentation consistency with `pnpm dev validate`
+- **CI/CD Pipelines**: Validate documentation consistency with `agent-context validate`
 - **Template Customization**: Create agent-specific formatting and content selection
 
 ---
