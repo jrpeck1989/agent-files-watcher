@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { initCommand } from './commands/init';
 import { buildCommand } from './commands/build';
 import { watchCommand } from './commands/watch';
@@ -9,10 +11,13 @@ import { serveCommand } from './commands/serve';
 
 const program = new Command();
 
+// Read version from package.json
+const packageJson = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf8'));
+
 program
   .name('agent-context')
   .description('A CLI and server for managing and serving agent context.')
-  .version('0.0.1');
+  .version(packageJson.version);
 
 // Placeholder for commands
 program.command('init')

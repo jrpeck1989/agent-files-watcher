@@ -1,0 +1,69 @@
+# Source files
+src/
+*.ts
+tsconfig.json
+
+# Development files
+.git/
+.vscode/
+.cursor/
+*.log
+.env
+.env.*
+
+# Testing and development
+test/
+tests/
+spec/
+*.test.*
+*.spec.*
+
+# Documentation that shouldn't be in the package
+docs/
+
+# Node modules (should be handled by .gitignore but just in case)
+node_modules/
+
+# Build artifacts that shouldn't be included
+*.tsbuildinfo
+
+# Package manager files
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# IDE and editor files
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Runtime and temporary files
+*.pid
+*.seed
+*.pid.lock
+*.tmp
+*.tmp.*
+
+# Coverage directory used by tools like istanbul
+coverage/
+.nyc_output/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Git files
+.gitignore
+.gitattributes

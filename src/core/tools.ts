@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
+import { spawn, ChildProcess } from "child_process";
 import { runBuild } from "./builder";
 import { z } from "zod";
 
@@ -9,6 +10,9 @@ const ToolsConfigSchema = z.object({
   partialsDir: z.string(),
   templatesDir: z.string(),
 });
+
+// Global state for watcher process
+let watcherProcess: ChildProcess | null = null;
 
 // Function to get config paths
 function getConfigPaths(): { partialsDir: string; templatesDir: string } {
@@ -145,6 +149,17 @@ export const toolSchemas = [
       required: ["template_name", "new_content"],
     },
   },
+  {
+    name: "start_watcher",
+    description:
+      "Starts the agent-context watcher to monitor file changes and auto-rebuild context files.",
+    inputSchema: { type: "object", properties: {} },
+  },
+  {
+    name: "stop_watcher",
+    description: "Stops the currently running agent-context watcher process.",
+    inputSchema: { type: "object", properties: {} },
+  },
 ];
 
 interface ToolImplementations {
@@ -211,4 +226,105 @@ export const toolImplementations: ToolImplementations = {
     fs.writeFileSync(templatePath, new_content);
     return { success: true };
   },
+  start_watcher: () => {
+    if (watcherProcess && !watcherProcess.killed) {
+      return { success: false, message: "Watcher is already running" };
+    }
+
+    try {
+      // Get the path to the current binary
+      const executablePath = process.execPath; // Path to node
+      const scriptPath = path.resolve(__dirname, "../index.js");
+
+      // Check if compiled version exists, otherwise use ts-node for development
+      const isBuilt = fs.existsSync(scriptPath);
+
+      if (isBuilt) {
+        // Use the built version
+        watcherProcess = spawn(executablePath, [scriptPath, "watch"], {
+          stdio: "pipe",
+          detached: false,
+        });
+      } else {
+        // Use ts-node for development
+        const tsNodePath = path.resolve(
+          process.cwd(),
+          "node_modules/.bin/ts-node"
+        );
+        const srcScriptPath = path.resolve(__dirname, "../index.ts");
+
+        if (fs.existsSync(tsNodePath)) {
+          watcherProcess = spawn(tsNodePath, [srcScriptPath, "watch"], {
+            stdio: "pipe",
+            detached: false,
+          });
+        } else {
+          // Fallback to npx ts-node
+          watcherProcess = spawn("npx", ["ts-node", srcScriptPath, "watch"], {
+            stdio: "pipe",
+            detached: false,
+          });
+        }
+      }
+
+      watcherProcess.stdout?.on("data", (data) => {
+        console.log(`Watcher: ${data}`);
+      });
+
+      watcherProcess.stderr?.on("data", (data) => {
+        console.error(`Watcher: ${data}`);
+      });
+
+      watcherProcess.on("close", (code) => {
+        console.error(`Watcher process exited with code ${code}`);
+        watcherProcess = null;
+      });
+
+      watcherProcess.on("error", (error) => {
+        console.error(`Watcher process error: ${error.message}`);
+        watcherProcess = null;
+      });
+
+      return {
+        success: true,
+        message: "Watcher started successfully",
+        pid: watcherProcess.pid,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: `Failed to start watcher: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
+      };
+    }
+  },
+  stop_watcher: () => {
+    if (!watcherProcess || watcherProcess.killed) {
+      return {
+        success: false,
+        message: "No watcher process is currently running",
+      };
+    }
+
+    try {
+      watcherProcess.kill("SIGTERM");
+
+      // Give it a moment to gracefully shutdown, then force kill if needed
+      setTimeout(() => {
+        if (watcherProcess && !watcherProcess.killed) {
+          watcherProcess.kill("SIGKILL");
+        }
+      }, 5000);
+
+      return { success: true, message: "Watcher stop signal sent" };
+    } catch (error) {
+      return {
+        success: false,
+        message: `Failed to stop watcher: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
+      };
+    }
+  }
 };

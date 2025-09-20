@@ -1,7 +1,7 @@
 {
   "name": "agent-files-watcher",
   "version": "1.0.0",
-  "description": "",
+  "description": "A comprehensive CLI tool and MCP server for synchronizing AI agent documentation using a partials-to-templates architecture",
   "main": "dist/index.js",
   "bin": {
     "agent-context": "dist/index.js"
@@ -10,11 +10,33 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "ai-agents",
+    "documentation",
+    "mcp",
+    "model-context-protocol",
+    "synchronization",
+    "templates",
+    "mustache",
+    "cli-tool",
+    "agent-context",
+    "documentation-management",
+    "living-documentation",
+    "partials"
+  ],
+  "author": "Jordan Peck <jordan1peck@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jrpeck1989/agent-files-watcher.git"
+  },
+  "homepage": "https://github.com/jrpeck1989/agent-files-watcher#readme",
+  "bugs": {
+    "url": "https://github.com/jrpeck1989/agent-files-watcher/issues"
+  },
   "packageManager": "pnpm@10.6.3",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.2",
