@@ -1,6 +1,6 @@
 {
   "name": "agent-files-watcher",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A comprehensive CLI tool and MCP server for synchronizing AI agent documentation using a partials-to-templates architecture",
   "main": "dist/index.js",
   "bin": {
