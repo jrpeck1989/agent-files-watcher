@@ -112,6 +112,56 @@ agent-files-watcher/
 └── AGENTS.md               # 🤖 Generated agent files
 ```
 
+## MCP Server Configuration
+
+### Adding to Cursor
+
+To use this MCP server with Cursor IDE, add the following configuration to your Cursor settings:
+
+1. Open Cursor Settings (Cmd/Ctrl + ,)
+2. Search for "MCP" or navigate to Extensions > MCP
+3. Add a new MCP server configuration:
+
+```json
+{
+  "mcpServers": {
+    "agent-context": {
+      "command": "agent-context",
+      "args": ["serve", "--stdio"],
+      "cwd": "/path/to/your/project"
+    }
+  }
+}
+```
+
+### Adding to Claude Code
+
+To use this MCP server with Claude Code, run the following command in your project directory:
+
+```bash
+claude-code add-mcp-server agent-context --command "agent-context" --args "serve --stdio"
+```
+
+Or manually add the configuration to your Claude Code settings:
+
+```json
+{
+  "mcpServers": {
+    "agent-context": {
+      "command": "agent-context",
+      "args": ["serve", "--stdio"],
+      "cwd": "/path/to/your/project"
+    }
+  }
+}
+```
+
+### Adding to Other MCP Clients
+
+For any MCP-compatible client, you can:
+- **Stdio Mode**: Use `agent-context serve --stdio` for direct integration
+- **HTTP Mode**: Use `agent-context serve` and connect to `http://localhost:3000/mcp`
+
 ## MCP Server & Tools
 
 The MCP server provides programmatic access to agent context management through four core tools:
