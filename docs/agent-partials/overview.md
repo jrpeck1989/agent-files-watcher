@@ -1,6 +1,6 @@
 # Project Overview: Agent Context Sync & Serve Tool
 
-The **agent-files-watcher** project is a comprehensive CLI tool and MCP (Model Context Protocol) server designed to solve critical problems in AI agent documentation management. The tool creates a unified, automated system for keeping agent context files synchronized and up-to-date.
+The **agent-context-sync** project is a comprehensive CLI tool and MCP (Model Context Protocol) server designed to solve critical problems in AI agent documentation management. The tool creates a unified, automated system for keeping agent context files synchronized and up-to-date.
 
 ## The Problems It Solves
 
@@ -49,11 +49,11 @@ The server provides a programmatic interface for agents to:
 
 ## Workflow
 
-1. **Initialize**: `pnpm dev init` creates project structure
+1. **Initialize**: `agent-context-sync init` creates project structure
 2. **Develop**: Write/edit content in `docs/agent-partials/`
-3. **Build**: `pnpm dev build` generates agent files from partials + templates
-4. **Serve**: `pnpm dev serve` starts MCP server for agent interactions
+3. **Build**: `agent-context-sync build` generates agent files from partials + templates
+4. **Serve**: `agent-context-sync serve` starts MCP server for agent interactions
 5. **Update**: Agents use MCP tools to update partials programmatically
-6. **Validate**: `pnpm dev validate` ensures everything stays in sync
+6. **Validate**: `agent-context-sync validate` ensures everything stays in sync
 
 This creates a **closed-loop system** where both humans and AI agents can contribute to keeping documentation accurate and current.

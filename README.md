@@ -38,32 +38,32 @@ Agents can update their context after performing work, creating living documenta
 #### **Global Installation (Recommended)**
 ```bash
 # Using pnpm
-pnpm add -g agent-files-watcher
+pnpm add -g agent-context-sync
 
 # Using npm
-npm install -g agent-files-watcher
+npm install -g agent-context-sync
 
 # Using yarn
-yarn global add agent-files-watcher
+yarn global add agent-context-sync
 ```
 
 #### **One-time Usage (No Installation)**
 ```bash
 # Using pnpm
-pnpm dlx agent-files-watcher init
+pnpm dlx agent-context-sync init
 
 # Using npm
-npx agent-files-watcher init
+npx agent-context-sync init
 
 # Using yarn
-yarn dlx agent-files-watcher init
+yarn dlx agent-context-sync init
 ```
 
 ### Quick Start
 
 1. **Initialize a New Project:**
    ```bash
-   agent-context init
+   agent-context-sync init
    ```
    This creates:
    - `docs/agent-partials/` - Source markdown partials
@@ -72,13 +72,13 @@ yarn dlx agent-files-watcher init
 
 2. **Build Agent Files:**
    ```bash
-   agent-context build
+   agent-context-sync build
    ```
    Generates agent-specific files (e.g., `CLAUDE.md`, `GEMINI.md`) from partials and templates.
 
 3. **Watch for Changes (Optional):**
    ```bash
-   agent-context watch
+   agent-context-sync watch
    ```
    Auto-rebuilds agent files when partials or templates change.
 
@@ -86,17 +86,17 @@ yarn dlx agent-files-watcher init
 
 | Command | Description |
 |---------|-------------|
-| `agent-context init` | Scaffolds new project structure with directories and config |
-| `agent-context build` | Generates agent files from partials using templates |
-| `agent-context watch` | Auto-rebuilds agent files when partials/templates change |
-| `agent-context serve` | Starts MCP server (HTTP mode on port 3000) |
-| `agent-context serve --stdio` | Starts MCP server in stdio mode for direct agent integration |
-| `agent-context validate` | Validates that generated files are in sync (perfect for CI) |
+| `agent-context-sync init` | Scaffolds new project structure with directories and config |
+| `agent-context-sync build` | Generates agent files from partials using templates |
+| `agent-context-sync watch` | Auto-rebuilds agent files when partials/templates change |
+| `agent-context-sync serve` | Starts MCP server (HTTP mode on port 3000) |
+| `agent-context-sync serve --stdio` | Starts MCP server in stdio mode for direct agent integration |
+| `agent-context-sync validate` | Validates that generated files are in sync (perfect for CI) |
 
 ## Project Structure
 
 ```
-agent-files-watcher/
+agent-context-sync/
 ├── docs/
 │   ├── agent-partials/     # 📝 Source markdown content
 │   │   ├── overview.md
@@ -125,8 +125,8 @@ To use this MCP server with Cursor IDE, add the following configuration to your 
 ```json
 {
   "mcpServers": {
-    "agent-context": {
-      "command": "agent-context",
+    "agent-context-sync": {
+      "command": "agent-context-sync",
       "args": ["serve", "--stdio"],
       "cwd": "/path/to/your/project"
     }
@@ -139,7 +139,7 @@ To use this MCP server with Cursor IDE, add the following configuration to your 
 To use this MCP server with Claude Code, run the following command in your project directory:
 
 ```bash
-claude-code add-mcp-server agent-context --command "agent-context" --args "serve --stdio"
+claude-code add-mcp-server agent-context-sync --command "agent-context-sync" --args "serve --stdio"
 ```
 
 Or manually add the configuration to your Claude Code settings:
@@ -147,8 +147,8 @@ Or manually add the configuration to your Claude Code settings:
 ```json
 {
   "mcpServers": {
-    "agent-context": {
-      "command": "agent-context",
+    "agent-context-sync": {
+      "command": "agent-context-sync",
       "args": ["serve", "--stdio"],
       "cwd": "/path/to/your/project"
     }
@@ -159,8 +159,8 @@ Or manually add the configuration to your Claude Code settings:
 ### Adding to Other MCP Clients
 
 For any MCP-compatible client, you can:
-- **Stdio Mode**: Use `agent-context serve --stdio` for direct integration
-- **HTTP Mode**: Use `agent-context serve` and connect to `http://localhost:3000/mcp`
+- **Stdio Mode**: Use `agent-context-sync serve --stdio` for direct integration
+- **HTTP Mode**: Use `agent-context-sync serve` and connect to `http://localhost:3000/mcp`
 
 ## MCP Server & Tools
 
@@ -179,13 +179,13 @@ The MCP server provides programmatic access to agent context management through 
 
 **HTTP Mode (for testing):**
 ```bash
-agent-context serve
+agent-context-sync serve
 # Server available at http://localhost:3000/mcp
 ```
 
 **Stdio Mode (for agent integration):**
 ```bash
-agent-context serve --stdio
+agent-context-sync serve --stdio
 # Communicates via stdin/stdout for direct MCP client integration
 ```
 
@@ -250,7 +250,7 @@ output:
 - **Documentation Teams**: Maintain consistent agent instructions across multiple AI tools
 - **Development Teams**: Keep agent context synchronized with codebase changes
 - **AI Agents**: Self-update documentation after completing tasks
-- **CI/CD Pipelines**: Validate documentation consistency with `agent-context validate`
+- **CI/CD Pipelines**: Validate documentation consistency with `agent-context-sync validate`
 - **Template Customization**: Create agent-specific formatting and content selection
 
 ---

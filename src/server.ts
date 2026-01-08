@@ -43,8 +43,8 @@ async function startStdioServer() {
   // Create MCP server using official SDK
   const server = new Server(
     {
-      name: 'agent-context',
-      version: '1.0.0',
+      name: 'agent-context-sync',
+      version: '1.1.0',
     },
     {
       capabilities: {

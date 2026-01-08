@@ -15,7 +15,7 @@ const program = new Command();
 const packageJson = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf8'));
 
 program
-  .name('agent-context')
+  .name('agent-context-sync')
   .description('A CLI and server for managing and serving agent context.')
   .version(packageJson.version);
 

@@ -9,7 +9,14 @@ export async function validateCommand() {
   let allFilesValid = true;
 
   for (const output of buildOutputs) {
-    const filePath = path.join(rootDir, output.outFile);
+    let filePath: string;
+    
+    if (output.isCursorRule) {
+      filePath = path.join(rootDir, '.cursor', 'rules', output.outFile);
+    } else {
+      filePath = path.join(rootDir, output.outFile);
+    }
+    
     if (!fs.existsSync(filePath)) {
       console.error(`Error: File ${output.outFile} not found. Please run "build" first.`);
       allFilesValid = false;

@@ -152,12 +152,12 @@ export const toolSchemas = [
   {
     name: "start_watcher",
     description:
-      "Starts the agent-context watcher to monitor file changes and auto-rebuild context files.",
+      "Starts the agent-context-sync watcher to monitor file changes and auto-rebuild context files.",
     inputSchema: { type: "object", properties: {} },
   },
   {
     name: "stop_watcher",
-    description: "Stops the currently running agent-context watcher process.",
+    description: "Stops the currently running agent-context-sync watcher process.",
     inputSchema: { type: "object", properties: {} },
   },
 ];

@@ -3,7 +3,7 @@
 ## Directory Structure
 
 ```
-agent-files-watcher/
+agent-context-sync/
 ├── docs/
 │   ├── agent-partials/          # Source markdown partials
 │   │   ├── overview.md
